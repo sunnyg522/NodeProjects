@@ -1,46 +1,30 @@
-var Select_value;
-var a = document.getElementById('fvalue').value;
-var b = document.getElementById('svalue').value;
-
-function sayHello() {
-  var x = document.getElementById("operations");
-  Select_value = x.options[x.selectedIndex].text;
-  alert(a);
-  alert(Select_value);
-  callingServerVariables(Select_value);
-}
-function callingServerVariables (operation)
-{
-  //alert(operation);
-  if(operation=="Addition")
-    {//alert("testing");
-    addingNumber();
-  }
-  else if(operation == "Subtraction")
-    subtractionNumbers();
-    else if(operation == "Multiplication")
-      multiplicationNumberS();
-      else
-        divNumbers();
-
-var a=10;
-var b=20;
 var http = require('http'),
 url = require('url');
-var i=2;
-if(i==1)
-  additionServer();
-  else if (i==2)
-    subtractionServer();
-    else if (i==3)
-      multiplicationServer();
-      else
-        divServer();
+function sayHello() {
+  var Select_value;
+  var a = document.getElementById("fvalue").value;
+  var b = document.getElementById('svalue').value;
+  var x = document.getElementById("operations");
+  Select_value = x.options[x.selectedIndex].text;
+  //alert(a);
+  //alert(b);
+  //alert(Select_value);
 
-
+var operation = Select_value;
+//alert(operation);
+if(operation=="Addition")
+  {//alert("addition")
+  additionServer();}
+else if(operation == "Subtraction")
+  subtractionServer();
+else if(operation == "Multiplication")
+  multiplicationServer();
+else
+  divServer();
 
         function additionServer()
         {
+          alert("inside addition function")
           var server = http.createServer().listen(9011, '127.0.0.1');
           server.on('request', function(req, res) {
             var url_parts = url.parse(req.url, true);
@@ -48,8 +32,10 @@ if(i==1)
               case '/':
                 case '/index.html':
                   res.write('<html><body>addition of two number<br> check the console log for the result</body></html>');
+                  res.write(a+b);
                   //res.write('This is addition of 2 numbers %d', a+b);
                   console.log('Adding 2 number %d', a+b)
+                  alert("done additon");
                   break;
                   default:
                     res.write('Unknown path: ' + JSON.stringify(url_parts));
@@ -75,8 +61,8 @@ if(i==1)
                         res.end();
                       });
                     }
-                    function multiplicationServer()
-                    {
+                function multiplicationServer()
+                {
                       var server = http.createServer().listen(9013, '127.0.0.1');
                       server.on('request', function(req, res) {
                         var url_parts = url.parse(req.url, true);
@@ -93,7 +79,7 @@ if(i==1)
                               res.end();
                             });
                           }
-                          function divServer()
+                function divServer()
                           {
                             var server = http.createServer().listen(9014, '127.0.0.1');
                             server.on('request', function(req, res) {
@@ -111,3 +97,4 @@ if(i==1)
                                     res.end();
                                   });
                                 }
+}
